@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'common',
+    'repository',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,9 +58,7 @@ ROOT_URLCONF = 'openobj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            join(BASE_DIR, 'templates')
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +123,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Additional locations of static files
-STATICFILES_DIRS = [
-    join(BASE_DIR, 'static')
-]
