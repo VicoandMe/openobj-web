@@ -1,5 +1,5 @@
 # openobj
-
+使用python web开发框架django 1.9.2版本，基于python 3.5.1
 # 环境配置
 ##Windows
 
