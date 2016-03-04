@@ -2,13 +2,18 @@ from django.shortcuts import render, render_to_response
 
 # Create your views here.
 
+
+def register_page(request):
+    return render_to_response('usercenter/register.html')
+
+
 def register(request):
     """
     注册
+    :param request:
+    :return:
     """
-    account = request.POST.get("account")
-    password = request.POST.get("password")
 
 
-def login(request):
+def login_page(request):
     return render_to_response('usercenter/login.html')
