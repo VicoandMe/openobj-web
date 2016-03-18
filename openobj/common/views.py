@@ -3,5 +3,8 @@ from django.http import HttpResponse
 
 
 #首页
-def index(request):
+def index_page(request):
+    """
+    打开首页
+    """
     return render_to_response('common/index.html')
