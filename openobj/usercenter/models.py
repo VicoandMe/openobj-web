@@ -17,7 +17,7 @@ class UserAccount(models.Model):
     register_source = models.IntegerField(default=0, verbose_name='注册来源')
     is_locked = models.BooleanField(default=False, verbose_name='锁定状态')
     creation_time = models.DateTimeField(default=now, verbose_name='创建时间')
-    last_login_time = models.DateTimeField(default=now, verbose_name='最后一次登录时间', blank=True, null=True)
+    last_login_time = models.DateTimeField(default=now, verbose_name='最后一次登录时间')
     login_fail_count = models.IntegerField(default=0, verbose_name='登录失败统计')
 
     def __str__(self):
@@ -30,12 +30,12 @@ class UserAccount(models.Model):
 
 class UserInformation(models.Model):
     user_account = models.ForeignKey(UserAccount)
-    nick_name = models.CharField(max_length=50, verbose_name='昵称')
-    first_name = models.CharField(max_length=50, verbose_name='名')
-    last_name = models.CharField(max_length=50, verbose_name='姓')
-    sex = models.IntegerField(verbose_name='性别')
-    birthday = models.DateTimeField(verbose_name='生日')
-    avatar = models.CharField(max_length=200, verbose_name='头像')
+    nick_name = models.CharField(max_length=50, verbose_name='昵称', blank=True, null=True)
+    first_name = models.CharField(max_length=50, verbose_name='名', blank=True, null=True)
+    last_name = models.CharField(max_length=50, verbose_name='姓', blank=True, null=True)
+    sex = models.IntegerField(verbose_name='性别', blank=True, null=True)
+    birthday = models.DateTimeField(verbose_name='生日', blank=True, null=True)
+    avatar = models.CharField(max_length=200, verbose_name='头像', blank=True, null=True)
 
     def __str__(self):
         return self.nick_name
