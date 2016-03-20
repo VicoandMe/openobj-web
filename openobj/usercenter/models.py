@@ -7,6 +7,7 @@ from django.utils.timezone import now
 
 
 class UserAccount(models.Model):
+
     guid = models.AutoField(primary_key=True)
     email = models.EmailField(verbose_name='邮箱')
     email_verified = models.BooleanField(default=False, verbose_name='邮箱验证确认状态')
@@ -18,7 +19,7 @@ class UserAccount(models.Model):
     is_locked = models.BooleanField(default=False, verbose_name='锁定状态')
     creation_time = models.DateTimeField(default=now, verbose_name='创建时间')
     last_login_time = models.DateTimeField(default=now, verbose_name='最后一次登录时间')
-    login_fail_count = models.IntegerField(default=0, verbose_name='登录失败统计')
+    login_fail_count = models.IntegerField(default=0, verbose_name='连续登录失败统计')
 
     def __str__(self):
         return self.email
@@ -58,9 +59,8 @@ class UserLoginHistory(models.Model):
 
 class UserEmailVerifyCode(models.Model):
     user_account = models.ForeignKey(UserAccount)
-    email = models.EmailField(verbose_name='邮箱')
-    code = models.CharField(max_length=200, verbose_name='验证码')
-    valid_time = models.DateTimeField(default=now, verbose_name='确认时间')
+    code = models.CharField(max_length=1024, verbose_name='验证码')
+    valid_time = models.DateTimeField(default=now, verbose_name='过期时间')
 
     class Meta:
         db_table = "user_email_verify_code"
@@ -70,10 +70,10 @@ class UserEmailVerifyCode(models.Model):
 class User3rdAuthorization(models.Model):
     user_account = models.ForeignKey(UserAccount)
     auth_type = models.IntegerField(verbose_name='用户类型')
-    user_app_identity = models.IntegerField()
-    user_identity = models.IntegerField()
-    auth_time = models.DateTimeField(default=now)
-    auth_data = models.CharField(max_length=200)
+    user_app_identity = models.IntegerField(verbose_name='应用内唯一id')
+    user_identity = models.IntegerField(verbose_name='第三方唯一id')
+    auth_time = models.DateTimeField(default=now, verbose_name='授权时间')
+    auth_data = models.CharField(max_length=200, verbose_name='第三方返回的数据')
 
     class Meta:
         db_table = 'user_3rd_authorization'
