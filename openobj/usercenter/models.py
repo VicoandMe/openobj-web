@@ -36,7 +36,7 @@ class UserInformation(models.Model):
     last_name = models.CharField(max_length=50, verbose_name='姓', blank=True, null=True)
     sex = models.IntegerField(verbose_name='性别', blank=True, null=True)
     birthday = models.DateTimeField(verbose_name='生日', blank=True, null=True)
-    avatar = models.CharField(max_length=200, verbose_name='头像', blank=True, null=True)
+    avatar = models.CharField(max_length=1024, verbose_name='头像', blank=True, null=True)
 
     def __str__(self):
         return self.nick_name
