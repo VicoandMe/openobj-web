@@ -1,10 +1,10 @@
-from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.template import loader
 
 
-#首页
 def index_page(request):
     """
     打开首页
     """
-    return render_to_response('common/index.html')
+    return render(request, 'common/index.html', {})

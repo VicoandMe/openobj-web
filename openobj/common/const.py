@@ -1,0 +1,4 @@
+# 成功
+SUCCESS_STATUS = 0
+# 失败
+FAIL_STATUS = 1

@@ -5,7 +5,7 @@
     {% include 'common/header.html' %}
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/register.css' %}" rel="stylesheet">
+    <link href="{% static 'css/usercenter.css' %}" rel="stylesheet">
   </head>
 
   <body>
@@ -14,17 +14,17 @@
 
     <div class="container">
 
-      <div class="form-register" action="">
-        <h2 class="form-register-heading">注册账号</h2>
+      <div class="user-center">
+        <h2 class="user-center-heading">注册账号</h2>
 
         <label for="input_username" class="sr-only">Username</label>
-        <input id="input_username" class="form-control" placeholder="Username" required autofocus>
+        <input id="input_username" type="text" class="form-control" placeholder="Username" required autofocus>
 
         <label for="input_email" class="sr-only">Email address</label>
-        <input id="input_email" class="form-control" placeholder="Email address" required autofocus>
+        <input id="input_email" type="email" class="form-control" placeholder="Email address" required autofocus>
 
         <label for="input_password" class="sr-only">Password</label>
-        <input id="input_password" class="form-control" placeholder="Password" required>
+        <input id="input_password" type="password" class="form-control" placeholder="Password" required>
 
         <input class="btn btn-lg btn-primary btn-block" type="button" value="立即注册" onclick="register();">
         <h5>已经有账号了?<a href="/usercenter/login">立即登录</a></h5>
@@ -32,10 +32,8 @@
 
     </div> <!-- /container -->
 
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'js/register.js' %}"></script>
+    {% include 'common/base_js_load.html' %}
+    <script src="{% static 'js/register.js' %}"></script>
 
   </body>
 </html>

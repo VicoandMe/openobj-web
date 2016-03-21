@@ -1,28 +1,43 @@
-from django.core.serializers import json
+from django.http import HttpResponse
 from django.shortcuts import render, render_to_response
+from django.views.decorators.csrf import csrf_exempt
+from . import logic
+from common import api_util
 
-# Create your views here.
 
-
+@csrf_exempt
 def register(request):
     """
     注册
+    :param request:
     """
-    if (request.method == "POST"):
-        parameter = request.POST.get("parameter")
-        decodejson = json.loads(parameter)
-        username = decodejson.get("username")
-        email = decodejson.get("email")
-        password = decodejson.get("password")
-        print(username)
-        print(email)
-        print(password)
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        status, msg = logic.register(username, email, password)
+        return api_util.http_response_json(status, msg, {})
     else:
-        return render_to_response('usercenter/register.html')
+        return render(request, 'usercenter/register.html', {})
 
 
-def login_page(request):
+def register_success(request):
+    """
+    打开注册成功页面
+    :param request:
+    :return:
+    """
+    return render(request, 'usercenter/register_success.html', {})
+
+
+def login(request):
     """
     打开登录页面
     """
-    return render_to_response('usercenter/login.html')
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        status, msg = logic.login(email, password)
+        return api_util.http_response_json(status, msg, {})
+    else:
+        return render_to_response('usercenter/login.html')

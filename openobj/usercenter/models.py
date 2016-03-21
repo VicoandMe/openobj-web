@@ -14,7 +14,7 @@ class UserAccount(models.Model):
     guid = models.AutoField(primary_key=True)
     email = models.EmailField(verbose_name='邮箱')
     email_verified = models.BooleanField(default=False, verbose_name='邮箱验证确认状态')
-    mobile = models.CharField(max_length=16, verbose_name='手机号')
+    mobile = models.CharField(max_length=16, verbose_name='手机号', blank=True, null=True)
     mobile_verified = models.BooleanField(default=False, verbose_name='手机号验证确认状态')
     user_name = models.CharField(max_length=16, verbose_name='用户名', blank=True, null=True)
     password = models.CharField(max_length=128, verbose_name='密码')
