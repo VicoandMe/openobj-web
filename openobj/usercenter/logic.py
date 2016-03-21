@@ -2,6 +2,7 @@ import hashlib
 import re
 from common import const
 from usercenter.models import UserAccount
+from libs import api_util
 
 
 def check_user_name(username):
@@ -35,12 +36,7 @@ def check_email(email):
         return const.FAIL_STATUS, "邮箱不能为空"
     if not re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email):
         return const.FAIL_STATUS, "邮箱格式错误,请输入正确的邮箱!"
-    try:
-        UserAccount.objects.get(email=email)
-        return const.FAIL_STATUS, "邮箱已存在"
-    except UserAccount.DoesNotExist:
-        return const.SUCCESS_STATUS, "OK"
-    return const.FAIL_STATUS, "ERROR"
+    return const.SUCCESS_STATUS, "OK"
 
 
 def check_password(password):
@@ -60,10 +56,6 @@ def check_password(password):
 def register(username, email, password):
     """
     注册
-    :param username:
-    :param email:
-    :param password:
-    :return:
     """
     status, msg = check_user_name(username)
     if status != const.SUCCESS_STATUS:
@@ -73,22 +65,24 @@ def register(username, email, password):
     if status != const.SUCCESS_STATUS:
         return status, msg
 
+    try:
+        UserAccount.objects.get(email=email)
+        return const.FAIL_STATUS, "邮箱已存在"
+    except UserAccount.DoesNotExist:
+        pass
+
     status, msg = check_password(password)
     if status != const.SUCCESS_STATUS:
         return status, msg
 
-    pw_bytes = password.encode('utf-8')
-    user_password = hashlib.md5(pw_bytes).hexdigest()
-    UserAccount.objects.create(email=email, user_name=username, password=user_password)
-    return const.SUCCESS_STATUS, 'OK'
+    UserAccount.objects.create(email=email, user_name=username, password=password)
+
+    return status, msg
 
 
-def login(email, password):
+def login(request, email, password):
     """
     登录
-    :param email:
-    :param password:
-    :return:
     """
     status, msg = check_email(email)
     if status != const.SUCCESS_STATUS:
@@ -98,5 +92,13 @@ def login(email, password):
     if status != const.SUCCESS_STATUS:
         return status, msg
 
-    pw_bytes = password.encode('utf-8')
-    user_password = hashlib.md5(pw_bytes).hexdigest()
+    try:
+        user = UserAccount.objects.get(email=email)
+        if not api_util.check_password(user.password, password):
+            return const.FAIL_STATUS, "密码错误"
+    except UserAccount.DoesNotExist:
+        return const.FAIL_STATUS, "不存在该邮箱"
+    request.session['guid'] = user.guid
+    return status, msg
+
+

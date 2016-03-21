@@ -5,7 +5,7 @@
     {% include 'common/header.html' %}
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/usercenter.css' %}" rel="stylesheet">
+    <link href="{% static 'css/login.css' %}" rel="stylesheet">
   </head>
 
   <body>
@@ -14,14 +14,14 @@
 
     <div class="container">
 
-      <div class="user-center">
-        <h2 class="user-center-heading">注册账号</h2>
+      <div class="login">
+        <h2 class="login-heading">注册账号</h2>
 
         <label for="input_username" class="sr-only">Username</label>
         <input id="input_username" type="text" class="form-control" placeholder="Username" required autofocus>
 
         <label for="input_email" class="sr-only">Email address</label>
-        <input id="input_email" type="email" class="form-control" placeholder="Email address" required autofocus>
+        <input id="input_email" type="email" class="form-control" placeholder="Email address" required>
 
         <label for="input_password" class="sr-only">Password</label>
         <input id="input_password" type="password" class="form-control" placeholder="Password" required>

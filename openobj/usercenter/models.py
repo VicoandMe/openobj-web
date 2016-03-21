@@ -1,6 +1,7 @@
 # coding:utf8
 from django.db import models
 from django.utils.timezone import now
+from libs import api_util
 
 
 # Create your models here.
@@ -23,6 +24,15 @@ class UserAccount(models.Model):
     creation_time = models.DateTimeField(default=now, verbose_name='创建时间')
     last_login_time = models.DateTimeField(default=now, verbose_name='最后一次登录时间')
     login_fail_count = models.IntegerField(default=0, verbose_name='连续登录失败统计')
+
+    def save(self, *args, **kwargs):
+        try:
+            user = UserAccount.objects.get(guid=self.guid)
+            if user.password != self.password:
+                self.password = api_util.hash_password(user.password)
+        except UserAccount.DoesNotExist:
+            self.password = api_util.hash_password(self.password)
+        super(UserAccount, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.email

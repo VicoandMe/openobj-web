@@ -1,11 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-from django.views.decorators.csrf import csrf_exempt
+
+from common import response_helper
+from libs import api_util
 from . import logic
-from common import api_util
 
 
-@csrf_exempt
 def register(request):
     """
     注册
@@ -16,7 +16,7 @@ def register(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         status, msg = logic.register(username, email, password)
-        return api_util.http_response_json(status, msg, {})
+        return response_helper.http_response_json(status, msg, {})
     else:
         return render(request, 'usercenter/register.html', {})
 
@@ -27,7 +27,7 @@ def register_success(request):
     :param request:
     :return:
     """
-    return render(request, 'usercenter/register_success.html', {})
+    return response_helper.render_response_html(request,'usercenter/register_success.html', {})
 
 
 def login(request):
@@ -37,7 +37,16 @@ def login(request):
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
-        status, msg = logic.login(email, password)
-        return api_util.http_response_json(status, msg, {})
+        status, msg = logic.login(request, email, password)
+        return response_helper.http_response_json(status, msg, {})
     else:
         return render_to_response('usercenter/login.html')
+
+
+def logout(request):
+    """
+    登出
+    """
+    if request.session.get('guid'):
+        del request.session['guid']
+    return HttpResponseRedirect('/')
