@@ -4,22 +4,21 @@ from django.shortcuts import render, render_to_response
 # Create your views here.
 
 
-def register_page(request):
-    """
-    打开注册页面
-    """
-    return render_to_response('usercenter/register.html')
-
-
 def register(request):
     """
     注册
     """
-    parameter = request.POST.get("parameter")
-    decodejson = json.loads(parameter)
-    email = decodejson.get("email")
-    password = decodejson.get("password")
-    nickname = decodejson.get("nickname")
+    if (request.method == "POST"):
+        parameter = request.POST.get("parameter")
+        decodejson = json.loads(parameter)
+        username = decodejson.get("username")
+        email = decodejson.get("email")
+        password = decodejson.get("password")
+        print(username)
+        print(email)
+        print(password)
+    else:
+        return render_to_response('usercenter/register.html')
 
 
 def login_page(request):
