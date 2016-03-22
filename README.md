@@ -20,6 +20,6 @@
 * 6.运行工程：终端进入`openobj`目录输入：`python3 manage.py runserver`如果没有显示错误信息则启动成功
 * 7.进入http://127.0.0.1:8000 可看到实例
 
-##推荐使用编译器
+##推荐使用IDE
 pycharm
 http://www.jetbrains.com/pycharm/download/#section=windows
