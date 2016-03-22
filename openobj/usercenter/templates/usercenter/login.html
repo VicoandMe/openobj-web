@@ -1,16 +1,8 @@
-{% load staticfiles  %}
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    {% include 'common/header.html' %}
-
-    <!-- Custom styles for this template -->
+{% load staticfiles %}
+{% include 'common/header_began.html' %}
     <link href="{% static 'css/login.css' %}" rel="stylesheet">
-  </head>
-
-  <body>
-
-    {% include 'common/navbar.html' %}
+{% include 'common/header_end.html' %}
+{% include 'common/navbar.html' %}
 
     <div class="container">
       <div class="login">
@@ -29,12 +21,10 @@
 
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="立即登录" onclick="login();">
 
-        <a href="/usercenter/login"><h5>忘记密码?</h5></a>
+        <h5>还没有账号?<a href="/usercenter/register">立即注册</a></h5>
       </div>
 
     </div> <!-- /container -->
 
-    {% include 'common/base_js_load.html' %}
     <script src="{% static 'js/login.js' %}"></script>
-  </body>
-</html>
+{% include 'common/footer.html' %}

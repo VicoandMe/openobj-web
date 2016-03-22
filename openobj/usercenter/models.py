@@ -18,7 +18,7 @@ class UserAccount(models.Model):
     mobile = models.CharField(max_length=16, verbose_name='手机号', blank=True, null=True)
     mobile_verified = models.BooleanField(default=False, verbose_name='手机号验证确认状态')
     user_name = models.CharField(max_length=16, verbose_name='用户名', blank=True, null=True)
-    password = models.CharField(max_length=128, verbose_name='密码')
+    password = models.CharField(max_length=256, verbose_name='密码')
     register_source = models.CharField(max_length=32, choices=REGISTER_FROM, default=WEB, verbose_name='注册来源')
     is_locked = models.BooleanField(default=False, verbose_name='锁定状态')
     creation_time = models.DateTimeField(default=now, verbose_name='创建时间')

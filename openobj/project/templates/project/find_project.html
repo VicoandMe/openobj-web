@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    {% include 'common/header.html' %}
+  </head>
+  <body>
+
+    {% include 'common/navbar.html' %}
+
+
+    <div class="container">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>分类功能</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>仓库列表</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'common/base_js_load.html' %}
+  </body>
+</html>

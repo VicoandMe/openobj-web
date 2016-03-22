@@ -7,6 +7,8 @@ from django.utils.html import conditional_escape
 def trans_illegal(s):
     """
     转换不合法的字符
+    :param s:
+    :return:
     """
     g = lambda src: src if re.search(r'^http', src) else conditional_escape(src)
     if isinstance(s, str):

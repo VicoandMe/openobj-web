@@ -1,16 +1,8 @@
-{% load staticfiles  %}
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    {% include 'common/header.html' %}
-
-    <!-- Custom styles for this template -->
+{% load staticfiles %}
+{% include 'common/header_began.html' %}
     <link href="{% static 'css/login.css' %}" rel="stylesheet">
-  </head>
-
-  <body>
-
-    {% include 'common/navbar.html' %}
+{% include 'common/header_end.html' %}
+{% include 'common/navbar.html' %}
 
     <div class="container">
 
@@ -32,8 +24,5 @@
 
     </div> <!-- /container -->
 
-    {% include 'common/base_js_load.html' %}
     <script src="{% static 'js/register.js' %}"></script>
-
-  </body>
-</html>
+{% include 'common/footer.html' %}
