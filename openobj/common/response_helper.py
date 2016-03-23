@@ -5,7 +5,7 @@ from django.shortcuts import render
 from usercenter.models import UserAccount
 
 
-def http_response_json(status=0, msg="", data=""):
+def http_response_json(status=0, msg="", data={}):
     """
     http返回json数据
     """
@@ -14,7 +14,7 @@ def http_response_json(status=0, msg="", data=""):
                         content_type="application/json")
 
 
-def render_response_html(request, html, data):
+def render_response_html(request, html, data={}):
     guid = request.session.get("guid")
     try:
         user = UserAccount.objects.get(guid=guid)
