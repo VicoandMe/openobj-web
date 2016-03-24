@@ -1,11 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from common import response_helper
 from libs import api_util
 from . import logic
 
 
+@ensure_csrf_cookie
 def register(request):
     """
     注册
@@ -21,6 +23,7 @@ def register(request):
         return render(request, 'usercenter/register.html', {})
 
 
+@ensure_csrf_cookie
 def register_success(request):
     """
     打开注册成功页面
@@ -29,7 +32,7 @@ def register_success(request):
     """
     return response_helper.render_response_html(request,'usercenter/register_success.html', {})
 
-
+@ensure_csrf_cookie
 def login(request):
     """
     打开登录页面

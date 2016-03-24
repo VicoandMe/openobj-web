@@ -1,7 +1,10 @@
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 from common import response_helper
 from . import logic
 
 
+@ensure_csrf_cookie
 def find_project_page(request):
     """
     找项目页面
@@ -17,6 +20,7 @@ def find_project_page(request):
     return response_helper.render_response_html(request, 'project/find_project.html', data)
 
 
+@ensure_csrf_cookie
 def project_info(request):
     """
     项目详情页面
