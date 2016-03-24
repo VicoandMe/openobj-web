@@ -1,3 +1,4 @@
+{% load project_filter %}
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
     {% for classify_first in classify_first_list %}
@@ -12,7 +13,7 @@
               </h4>
             </div>
             <div id="collapse{{ classify_first.guid }}"
-                 class="panel-collapse collapse in"
+                 class="panel-collapse collapse {{ classify_first.guid | classify_spread:show_classify_first_id }}"
                  role="tabpanel"
                  aria-labelledby="heading{{ classify_first.guid }}">
               <div class="panel-body">
