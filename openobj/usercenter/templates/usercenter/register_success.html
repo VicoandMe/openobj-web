@@ -1,8 +1,7 @@
-{% load staticfiles  %}
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    {% include 'common/header.html' %}
+{% load staticfiles %}
+{% include 'common/header_began.html' %}
+{% include 'common/header_end.html' %}
+{% include 'common/navbar.html' %}
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/login.css' %}" rel="stylesheet">
@@ -20,7 +19,4 @@
 
     </div> <!-- /container -->
 
-    {% include 'common/base_js_load.html' %}
-
-  </body>
-</html>
+{% include 'common/footer.html' %}
