@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+    {% for project in project_list %}
+        <a href=""><h2>{{ project.title }}</h2></a>
+        <p>{{ project.description }}</p>
+        <hr>
+    {% endfor %}
+</div>

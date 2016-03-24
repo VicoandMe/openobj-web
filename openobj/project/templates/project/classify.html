@@ -1,23 +1,28 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              编程语言
-            </a>
-          </h4>
+    {% for classify_first in classify_first_list %}
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{{ classify_first.guid }}">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                   href="#collapse{{ classify_first.guid }}" aria-expanded="false"
+                   aria-controls="collapse{{ classify_first.guid }}">
+                  {{ classify_first.name }}
+                </a>
+              </h4>
+            </div>
+            <div id="collapse{{ classify_first.guid }}" class="panel-collapse collapse" role="tabpanel"
+                 aria-labelledby="heading{{ classify_first.guid }}">
+              <div class="panel-body">
+                <ul class="nav nav-stacked">
+                    {% for classify_second in classify_first.classify_second %}
+                        <li><a href="/project/?classify_second_id={{ classify_second.guid }}">{{ classify_second.name }}</a></li>
+                    {% endfor %}
+                </ul>
+              </div>
+            </div>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <ul class="nav nav-stacked">
-                <li><a href="#">C++</a></li>
-                <li><a href="#">C++</a></li>
-                <li><a href="#">C++</a></li>
-                <li><a href="#">C++</a></li>
-            </ul>
-          </div>
-        </div>
-    </div>
+    {% endfor %}
+
 
 </div>

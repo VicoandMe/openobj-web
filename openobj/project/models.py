@@ -33,7 +33,7 @@ class Project(models.Model):
     owner_user = models.ForeignKey(UserAccount, verbose_name="拥有者")
     title = models.CharField(max_length=128, verbose_name="标题")
     description = models.TextField(verbose_name="描述")
-    classify = models.ManyToManyField(ProjectClassifySecond, verbose_name="类别", blank=True, null=True)
+    classify = models.ManyToManyField(ProjectClassifySecond, verbose_name="类别")
     creation_time = models.DateTimeField(default=now, verbose_name="创建时间")
 
     def __str__(self):
