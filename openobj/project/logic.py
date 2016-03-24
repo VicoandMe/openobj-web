@@ -25,15 +25,41 @@ def get_project_classify():
 
 
 def get_project_list(classify_second_id=None):
+    """
+    获取项目列表
+    :param classify_second_id: 二级分类id
+    :return:
+    """
     if classify_second_id:
         try:
             classify_second = ProjectClassifySecond.objects.get(guid=classify_second_id)
-            print(classify_second.guid)
-            project_list = classify_second.project_set()
+            project_list = classify_second.project_set.all()
             data = project_list.all().values('guid', 'title', 'description')
             return list(data)
         except:
             return list()
     else:
         data = Project.objects.all().values('guid', 'title', 'description')
-    return list(data)
+        return list(data)
+
+
+def get_classify_first_by_classify_second(classify_second_id):
+    """
+    由二级分类id获取一级分类的id
+    :param classify_second_id:
+    :return:
+    """
+    if classify_second_id:
+        classify_second = ProjectClassifySecond.objects.get(guid=classify_second_id)
+        return classify_second.classify_first.guid
+
+
+def get_project_info(project_id):
+    """
+    获取项目信息
+    :param project_id:
+    :return:
+    """
+    if project_id:
+        data = Project.objects.get(guid=project_id)
+        return data

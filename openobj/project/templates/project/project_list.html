@@ -1,6 +1,6 @@
 <div>
     {% for project in project_list %}
-        <a href=""><h2>{{ project.title }}</h2></a>
+        <a href="/project/info/?project_id={{ project.guid }}"><h2>{{ project.title }}</h2></a>
         <p>{{ project.description }}</p>
         <hr>
     {% endfor %}

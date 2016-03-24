@@ -4,17 +4,18 @@
 {% include 'common/navbar.html' %}
 
     <div class="container">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {% include 'project/classify.html' %}
-                </div>
-            </div>
-        </div>
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    {% include 'project/project_list.html' %}
+                    <h2>{{ project_info.title }}</h2>
+                    <p>{{ project_info.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    侧栏
                 </div>
             </div>
         </div>
