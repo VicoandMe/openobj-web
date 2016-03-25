@@ -8,6 +8,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h2>{{ project_info.title }}</h2>
+                    <p>
+                        浏览数:{{ project_info.read_num }} 难度:{{ project_info.difficulty }}
+                        代码形式:{{ project_info.code_pattern }}
+                        托管方式:{{ project_info.repository }}
+                    </p>
                     <p>{{ project_info.description }}</p>
                 </div>
             </div>

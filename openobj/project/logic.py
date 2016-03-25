@@ -34,12 +34,12 @@ def get_project_list(classify_second_guid=None):
         try:
             classify_second = ProjectClassifySecond.objects.get(guid=classify_second_guid)
             project_list = classify_second.project_set.all()
-            data = project_list.all().values('guid', 'title', 'description')
+            data = project_list.all()
             return list(data)
         except:
             return list()
     else:
-        data = Project.objects.all().values('guid', 'title', 'description')
+        data = Project.objects.all()
         return list(data)
 
 

@@ -1,6 +1,10 @@
 <div>
     {% for project in project_list %}
         <a href="/project/info/?project_guid={{ project.guid }}"><h2>{{ project.title }}</h2></a>
+        <p>
+            浏览数:{{ project.read_num }} 难度:{{ project.difficulty }} 代码形式:{{ project.code_pattern }}
+            托管方式:{{ project.repository }}
+        </p>
         <p>{{ project.description }}</p>
         <hr>
     {% endfor %}
