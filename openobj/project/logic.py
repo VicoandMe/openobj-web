@@ -8,7 +8,7 @@ def get_project_classify_first():
 
 
 def get_project_classify_second(classify_first_guid):
-    data = ProjectClassifySecond.objects.filter(classify_first_id=classify_first_guid).values('guid', 'name')
+    data = ProjectClassifySecond.objects.filter(classify_first__guid=classify_first_guid).values('guid', 'name')
     return list(data)
 
 
@@ -24,15 +24,15 @@ def get_project_classify():
     return data
 
 
-def get_project_list(classify_second_id=None):
+def get_project_list(classify_second_guid=None):
     """
     获取项目列表
-    :param classify_second_id: 二级分类id
+    :param classify_second_guid: 二级分类id
     :return:
     """
-    if classify_second_id:
+    if classify_second_guid:
         try:
-            classify_second = ProjectClassifySecond.objects.get(guid=classify_second_id)
+            classify_second = ProjectClassifySecond.objects.get(guid=classify_second_guid)
             project_list = classify_second.project_set.all()
             data = project_list.all().values('guid', 'title', 'description')
             return list(data)
@@ -43,23 +43,23 @@ def get_project_list(classify_second_id=None):
         return list(data)
 
 
-def get_classify_first_by_classify_second(classify_second_id):
+def get_classify_first_by_classify_second(classify_second_guid):
     """
     由二级分类id获取一级分类的id
-    :param classify_second_id:
+    :param classify_second_guid:
     :return:
     """
-    if classify_second_id:
-        classify_second = ProjectClassifySecond.objects.get(guid=classify_second_id)
+    if classify_second_guid:
+        classify_second = ProjectClassifySecond.objects.get(guid=classify_second_guid)
         return classify_second.classify_first.guid
 
 
-def get_project_info(project_id):
+def get_project_info(project_guid):
     """
     获取项目信息
-    :param project_id:
+    :param project_guid:
     :return:
     """
-    if project_id:
-        data = Project.objects.get(guid=project_id)
+    if project_guid:
+        data = Project.objects.get(guid=project_guid)
         return data
