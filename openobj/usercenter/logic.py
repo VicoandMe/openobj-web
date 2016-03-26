@@ -88,16 +88,17 @@ def login(request, email, password):
     if status != const.SUCCESS_STATUS:
         return status, msg
 
-    status, msg = check_password(password)
-    if status != const.SUCCESS_STATUS:
-        return status, msg
+    #前端已验证
+    #status, msg = check_password(password)
+    #if status != const.SUCCESS_STATUS:
+    #    return status, msg
 
     try:
         user = UserAccount.objects.get(email=email)
         if not api_util.check_password(user.password, password):
-            return const.FAIL_STATUS, "密码错误"
+            return const.FAIL_STATUS, "账户或密码错误"
     except UserAccount.DoesNotExist:
-        return const.FAIL_STATUS, "不存在该邮箱"
+        return const.FAIL_STATUS, "账户不存在"
     request.session['guid'] = user.guid
     return status, msg
 

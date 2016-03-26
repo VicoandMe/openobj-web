@@ -1,28 +1,43 @@
 {% load staticfiles %}
 {% include 'common/header_began.html' %}
-    <link href="{% static 'css/login.css' %}" rel="stylesheet">
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
 {% include 'common/header_end.html' %}
 {% include 'common/navbar.html' %}
 
-    <div class="container">
+<div class="container" style="margin-top:50px">
+    <div class="col-md-5 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>注册 </strong></h3>
+            </div>
 
-      <div class="login">
-        <h2 class="login-heading">注册账号</h2>
+            <div class="panel-body" style="padding-left:30px;padding-right:30px;">
+                <form id="regForm" role="form">
+                    <div id="div-fail-alert">
+                    </div>
+                    <div class="my-group">
+                        <input id="input-username" type="text" class="form-control" name="username" autofocus
+                               placeholder="用户名">
+                    </div>
+                    <div class="my-group">
+                        <input id="input-email" type="text" class="form-control" name="email" placeholder="邮箱">
+                    </div>
+                    <div class="my-group" style="margin: 15px 0;">
+                        <input id="input-password" type="password" class="form-control" name="password"
+                               placeholder="设置密码">
+                    </div>
 
-        <label for="input_username" class="sr-only">Username</label>
-        <input id="input_username" type="text" class="form-control" placeholder="Username" required autofocus>
+                    <button id="btnRegister" type="button" class="btn btn-lg btn-primary btn-block">
+                        注册
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 col-md-offset-3">
+        <div class="reg-container ">已有账户？<a href="/usercenter/login">点此登录</a></div>
+    </div>
+</div>
 
-        <label for="input_email" class="sr-only">Email address</label>
-        <input id="input_email" type="email" class="form-control" placeholder="Email address" required>
-
-        <label for="input_password" class="sr-only">Password</label>
-        <input id="input_password" type="password" class="form-control" placeholder="Password" required>
-
-        <input class="btn btn-lg btn-primary btn-block" type="button" value="立即注册" onclick="register();">
-        <h5>已经有账号了?<a href="/usercenter/login">立即登录</a></h5>
-      </div>
-
-    </div> <!-- /container -->
-
-    <script src="{% static 'js/register.js' %}"></script>
+<script src="{% static 'js/register.js' %}"></script>
 {% include 'common/footer.html' %}
