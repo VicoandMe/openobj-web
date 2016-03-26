@@ -5,7 +5,7 @@ from common import const
 from usercenter.models import UserAccount
 from usercenter.models import UserLoginHistory
 from usercenter.models import UserInformation
-from libs import api_util
+from libs import passwd_util
 
 
 def check_user_name(username):
@@ -96,7 +96,7 @@ def login(request, email, password):
 
     try:
         user = UserAccount.objects.get(email=email)
-        if not api_util.check_password(user.password, password):
+        if not passwd_util.check_password(user.password, password):
             UserLoginHistory.objects.create(login_result=False, user_account=user)
             user.login_fail_count += 1
             user.save()

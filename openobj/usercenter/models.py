@@ -1,7 +1,7 @@
 # coding:utf8
 from django.db import models
 from django.utils.timezone import now
-from libs import api_util
+from libs import passwd_util
 
 
 # Create your models here.
@@ -29,9 +29,9 @@ class UserAccount(models.Model):
         try:
             user = UserAccount.objects.get(guid=self.guid)
             if user.password != self.password:
-                self.password = api_util.hash_password(user.password)
+                self.password = passwd_util.hash_password(user.password)
         except UserAccount.DoesNotExist:
-            self.password = api_util.hash_password(self.password)
+            self.password = passwd_util.hash_password(self.password)
         super(UserAccount, self).save(*args, **kwargs)
 
     def __str__(self):

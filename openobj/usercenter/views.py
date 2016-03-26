@@ -3,7 +3,6 @@ from django.shortcuts import render, render_to_response
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from common import response_helper
-from libs import api_util
 from . import logic
 
 
