@@ -12,7 +12,7 @@ class UserAccount(models.Model):
     REGISTER_FROM = (
         (WEB, '网站'),
     )
-    guid = models.AutoField(primary_key=True)
+    guid = models.UUIDField(primary_key=True)
     email = models.EmailField(verbose_name='邮箱')
     email_verified = models.BooleanField(default=False, verbose_name='邮箱验证确认状态')
     mobile = models.CharField(max_length=16, verbose_name='手机号', blank=True, null=True)

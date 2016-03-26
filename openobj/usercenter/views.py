@@ -30,7 +30,8 @@ def register_success(request):
     :param request:
     :return:
     """
-    return response_helper.render_response_html(request,'usercenter/register_success.html', {})
+    return response_helper.render_response_html(request, 'usercenter/register_success.html', {})
+
 
 @ensure_csrf_cookie
 def login(request):
@@ -43,7 +44,10 @@ def login(request):
         status, msg = logic.login(request, email, password)
         return response_helper.http_response_json(status, msg, {})
     else:
-        return render_to_response('usercenter/login.html')
+        if request.session.get('guid'):
+            return HttpResponseRedirect('/')
+        else:
+            return render_to_response('usercenter/login.html')
 
 
 def logout(request):

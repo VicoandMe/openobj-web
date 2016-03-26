@@ -1,7 +1,10 @@
 import hashlib
 import re
+import uuid
 from common import const
 from usercenter.models import UserAccount
+from usercenter.models import UserLoginHistory
+from usercenter.models import UserInformation
 from libs import api_util
 
 
@@ -34,7 +37,9 @@ def check_email(email):
     """
     if not email:
         return const.FAIL_STATUS, "邮箱不能为空"
-    if not re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email):
+    if not re.match(
+            r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$",
+            email):
         return const.FAIL_STATUS, "邮箱格式错误,请输入正确的邮箱!"
     return const.SUCCESS_STATUS, "OK"
 
@@ -75,7 +80,8 @@ def register(username, email, password):
     if status != const.SUCCESS_STATUS:
         return status, msg
 
-    UserAccount.objects.create(email=email, user_name=username, password=password)
+    user = UserAccount.objects.create(guid=uuid.uuid4(), email=email, user_name=username, password=password)
+    UserInformation.objects.create(user_account=user)
 
     return status, msg
 
@@ -88,18 +94,19 @@ def login(request, email, password):
     if status != const.SUCCESS_STATUS:
         return status, msg
 
-    #前端已验证
-    #status, msg = check_password(password)
-    #if status != const.SUCCESS_STATUS:
-    #    return status, msg
-
     try:
         user = UserAccount.objects.get(email=email)
         if not api_util.check_password(user.password, password):
+            UserLoginHistory.objects.create(login_result=False, user_account=user)
+            user.login_fail_count += 1
+            user.save()
             return const.FAIL_STATUS, "账户或密码错误"
     except UserAccount.DoesNotExist:
         return const.FAIL_STATUS, "账户不存在"
-    request.session['guid'] = user.guid
+
+    UserLoginHistory.objects.create(user_account=user)
+    user.login_fail_count = 0
+    user.save()
+
+    request.session['guid'] = str(user.guid)
     return status, msg
-
-

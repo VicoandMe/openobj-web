@@ -3,8 +3,6 @@
  */
 
 $(function () {
-    //todo 已登录转到首页
-
     $("#loginForm").validate({
         rules: {
             email: {
