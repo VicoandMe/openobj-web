@@ -1,7 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.views.decorators.csrf import ensure_csrf_cookie
-
 from common import response_helper
 from . import logic
 
@@ -16,7 +15,7 @@ def register(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        status, msg = logic.register(username, email, password)
+        status, msg = logic.register(request, username, email, password)
         return response_helper.http_response_json(status, msg, {})
     else:
         return render(request, 'usercenter/register.html', {})
@@ -49,6 +48,7 @@ def login(request):
             return render_to_response('usercenter/login.html')
 
 
+@ensure_csrf_cookie
 def logout(request):
     """
     登出
@@ -56,3 +56,24 @@ def logout(request):
     if request.session.get('guid'):
         del request.session['guid']
     return HttpResponseRedirect('/')
+
+
+@ensure_csrf_cookie
+def email_verify_page(request):
+    """
+    邮箱确认页面
+    """
+    return render_to_response('usercenter/register_email_verify.html')
+
+
+@ensure_csrf_cookie
+def email_verify_code(request):
+    guid = request.POST.get('d')
+    code = request.POST.get('code')
+    email_type = request.POST.get('type')
+    print(guid)
+    print(code)
+    print(email_type)
+    status, msg = logic.email_verify_code(guid, code, email_type)
+    return response_helper.http_response_json(status, msg, {})
+
