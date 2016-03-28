@@ -5,18 +5,14 @@
 
     <div class="container">
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {% include 'project/classify.html' %}
-                </div>
-            </div>
+            {% include 'project/classify.html' %}
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {% include 'project/project_list.html' %}
-                </div>
+            <div>
+                <h5>排序: <a href="">评论数</a> <a href="">发布时间</a></h5>
+                <hr>
             </div>
+            {% include 'project/project_list.html' %}
         </div>
     </div>
 
