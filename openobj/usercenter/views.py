@@ -68,12 +68,7 @@ def email_verify_page(request):
 
 @ensure_csrf_cookie
 def email_verify_code(request):
-    guid = request.POST.get('d')
-    code = request.POST.get('code')
-    email_type = request.POST.get('type')
-    print(guid)
-    print(code)
-    print(email_type)
-    status, msg = logic.email_verify_code(guid, code, email_type)
-    return response_helper.http_response_json(status, msg, {})
-
+    if request.method == "GET":
+        code = request.REQUEST.get("code")
+        status, msg = logic.verify_register_email(code)
+        return response_helper.http_response_json(status, msg, {})
