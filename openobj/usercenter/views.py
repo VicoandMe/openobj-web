@@ -59,16 +59,10 @@ def logout(request):
 
 
 @ensure_csrf_cookie
-def email_verify_page(request):
-    """
-    邮箱确认页面
-    """
-    return render_to_response('usercenter/register_email_verify.html')
-
-
-@ensure_csrf_cookie
-def email_verify_code(request):
-    if request.method == "GET":
-        code = request.REQUEST.get("code")
+def verify_email_code(request):
+    if request.method == "POST":
+        code = request.POST.get("code")
         status, msg = logic.verify_register_email(code)
         return response_helper.http_response_json(status, msg, {})
+    else:
+        return render_to_response('usercenter/register_email_verify.html')

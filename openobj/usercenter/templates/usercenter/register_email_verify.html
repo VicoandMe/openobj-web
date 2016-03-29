@@ -1,21 +1,47 @@
 {% load staticfiles %}
 {% include 'common/header_began.html' %}
-    <script src="{% static 'js/register.js' %}"></script>
 {% include 'common/header_end.html' %}
 {% include 'common/navbar.html' %}
 
-    <div class="container">
-      <div id="verify">
-        <h4>验证中...</h4>
-      </div>
+<div class="container">
+    <div id="div-alert">
 
-      <div id="success">
-        <h4>验证成功,去<a href="/usercenter/login">登录</a>吧!</h4>
-      </div>
-
-    </div> <!-- /container -->
+    </div>
+</div>
 
 {% include 'common/footer.html' %}
 
-<script>target_disply("success", "none");</script>
-<script>email_verify();</script>
+<script type="text/javascript">
+    $(function () {
+        showMessage("验证中...", true);
+        verify_email();
+    });
+
+    function verify_email() {
+        var code = GetQueryString("code");
+        if (code == null || code == "") {
+            showMessage("链接无效！", false);
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/usercenter/email/verify/",
+            data: {
+                code: code
+            },
+            success: function (res) {
+                if (res['status'] == 0) {
+                    showMessage('验证成功，<a href="/usercenter/login">点此登录</a>', true);
+                }
+                else {
+                    showMessage(res['msg'], false);
+                }
+            }
+        });
+    }
+
+    function showMessage(msg, success) {
+        $("#div-alert").html('<div style="padding: 30px 20px;" class="alert alert-' + (success ? 'info' : 'danger') + '">' + msg + '</div>');
+    }
+</script>

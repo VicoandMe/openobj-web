@@ -158,6 +158,8 @@ def verify_register_email(email_code):
         uevc.user_account.email_verified = True
         uevc.user_account.save()
 
+        uevc.delete()
+
         return const.SUCCESS_STATUS, "OK"
 
     except UserEmailVerifyCode.DoesNotExist:

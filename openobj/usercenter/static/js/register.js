@@ -83,42 +83,6 @@ function register() {
     });
 }
 
-function getQueryString(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
-
-function email_verify(){
-    var d = getQueryString("d");
-    var code = getQueryString("code");
-    var type = getQueryString("type");
-    $.ajax({
-        type: "POST",
-        url: "/usercenter/email/verify/code/",
-        data: {
-            d: d,
-            code: code,
-            type: type,
-        },
-        success: function (res) {
-            if (res['status'] == 0) {
-                target_disply("success", "");
-                target_disply("verify", "none");
-            }
-            else {
-                showMessage(res['msg']);
-            }
-        }
-    });
-}
-
-function target_disply(id, v){
-    var traget=document.getElementById(id);
-    traget.style.display=v;
-}
-
 function showMessage(msg) {
     $("#div-fail-alert").html('<div class="alert alert-danger"><a class="close" data-dismiss="alert" href="#">×</a>' + msg + '</div>');
 }
