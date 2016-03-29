@@ -87,7 +87,7 @@ def register(request, username, email, password):
     user = UserAccount.objects.create(guid=uuid.uuid4(), email=email, user_name=username, password=password)
     UserInformation.objects.create(user_account=user)
 
-    url_host = '{0}/usercenter/email/verify'.format(request.get_host())
+    url_host = '{0}/usercenter/email/verify'.format("http://" + request.get_host())
     # send_register_email(user, url_host)
 
     return status, msg
@@ -135,10 +135,10 @@ def send_register_email(user, url_host):
     except UserEmailVerifyCode.DoesNotExist:
         UserEmailVerifyCode.objects.create(user_account=user, code=code, valid_time=vtime)
 
-    url = url_host, "?code=", code
+    url = url_host + "?code=" + code
 
     body = settings.REG_EMAIL_CONTENT_TEMPLATE.format(url=url, username=user.user_name,
-                                                      date_now=now().strftime('%Y-%m-%d %H:%M:%S'))
+                                                      date_now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
     msg = EmailMessage()
     msg.subject = settings.REG_EMAIL_SUBJECT
