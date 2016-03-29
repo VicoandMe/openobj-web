@@ -3,10 +3,9 @@ import re
 import uuid
 
 from django.utils.timezone import now
-
 from common import const
 from libs import passwd_util
-from libs.message_service.email_message import email_message
+from libs.MessageService.EmailMessage import EmailMessage
 from usercenter.models import UserAccount, UserEmailVerifyCode
 from usercenter.models import UserInformation
 from usercenter.models import UserLoginHistory
@@ -89,7 +88,7 @@ def register(request, username, email, password):
     UserInformation.objects.create(user_account=user)
 
     url_host = '{0}/usercenter/email/verify'.format(request.get_host())
-    #send_register_email(user, url_host)
+    # send_register_email(user, url_host)
 
     return status, msg
 
@@ -126,7 +125,7 @@ def send_register_email(user, url_host):
     """
 
     code = str(uuid.uuid4()).replace("-", "")
-    vtime = datetime.datetime.now() + datetime.timedelta(days=1)
+    vtime = now() + datetime.timedelta(days=1)
 
     try:
         uevc = UserEmailVerifyCode.objects.get(user_account=user)
@@ -138,12 +137,15 @@ def send_register_email(user, url_host):
 
     url = url_host, "?code=", code
 
-    body = settings.REG_EMAIL_CONTENT_TEMPLATE.format(url=url, date_now=now().strftime('%Y-%m-%d %H:%M:%S'))
+    body = settings.REG_EMAIL_CONTENT_TEMPLATE.format(url=url, username=user.user_name,
+                                                      date_now=now().strftime('%Y-%m-%d %H:%M:%S'))
 
-    msg = email_message()
+    msg = EmailMessage()
+    msg.subject = settings.REG_EMAIL_SUBJECT
+    msg.from_user = const.NOREPLY_EMAIL
     msg.to_user = user.email
     msg.body = body
-    email_message.send()
+    msg.send()
     return True
 
 
@@ -152,7 +154,7 @@ def verify_register_email(email_code):
         if not email_code:
             return const.FAIL_STATUS, "验证失败"
 
-        uevc = UserEmailVerifyCode.objects.get(code=email_code, valid_time__gte=datetime.datetime.now())
+        uevc = UserEmailVerifyCode.objects.get(code=email_code, valid_time__gte=now())
         uevc.user_account.email_verified = True
         uevc.user_account.save()
 
