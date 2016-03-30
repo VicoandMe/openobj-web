@@ -1,0 +1,14 @@
+.jumbotron-home {
+    background-image: url("/static/image/homebg.jpg");
+    position: relative;
+    padding-top: 90px;
+    padding-bottom: 90px;
+    min-height: 400px;
+    margin-left: 500px;
+    background-color: rgba(0,0,0,0.25);
+}
+
+.jumbotron-inverse {
+    color: #fff;
+    background-color: #333;
+}
