@@ -1,0 +1,176 @@
+{% load staticfiles %}
+{% include 'common/header_began.html' %}
+<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% include 'common/header_end.html' %}
+{% include 'common/navbar.html' %}
+{% include 'common/user_left.html' %}
+
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-body tabs">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab1" data-toggle="tab">个人资料</a></li>
+				<li><a href="#tab2" data-toggle="tab">修改密码</a></li>
+				<li><a href="#tab3" data-toggle="tab">账户安全</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="tab1">
+					<!-- 个人资料 -->
+					<div class="id-data-faces">
+						<div class="id-data-faces-bdl">
+							<img id ="headpic" src="img/user_male.jpg">
+						</div>
+						<div class="id-data-faces-bdr">
+							<div class="id-data-faces-btn">
+								<button id="btnupload" type="button"  class="btn btn-lg btn-primary btn-block" onclick="upload();">上传头像</button>
+								<form target="submit-iframe"  enctype="multipart/form-data" method="post" id="headFace-upload-form">
+									<input name="file" type="file" id="up" accept="image/jpg, image/jpeg, image/gif, image/png">
+									<input id="headFace-width" type="hidden" name="width">
+									<input id="headFace-height" type="hidden" name="height">
+									<input id="headFace-x" type="hidden" name="x">
+									<input id="headFace-y" type="hidden" name="y">
+									<input type="hidden" name="targetWidth" value="150">
+									<input type="hidden" name="targetHeight" value="150">
+								</form>
+							</div>
+							<p>支持JPG、JPEG、GIF、PNG格式的图片</p>
+						</div>
+					</div>
+					<div class="id-data-info">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						       <tbody>
+							        <tr>
+										<td width="70" align="right">昵称：</td>
+										<td width="20">&nbsp;</td>
+										<td>
+											<input type="text" maxlength="20" class="id-data-input" name="username" placeholder={{username}}>
+											<span style="display: none;" id="nameTips">用户名长度为6-20个字符</span>
+										</td>
+									</tr>
+							        <tr>
+										<td align="right">性别：</td>
+										<td>&nbsp;</td>
+										<td>
+											<label class="id-data-label">
+												<input type="radio" name="sexGroup" value="2" id="female">"女"</label>
+											<label class="id-data-label">
+												<input type="radio" name="sexGroup" value="1" id="male">"男"</label>
+										</td>
+									</tr>
+									<tr>
+										<td align="right">邮箱：</td>
+										<td>&nbsp;</td>
+										<td>
+											<input id="user_email" type="email" name="email" maxlength="20" class="id-data-input" placeholder="">
+										</td>
+									</tr>
+							        <tr>
+										<td align="right">生日：</td>
+										<td>&nbsp;</td>
+										<input type="date" name="birthday" id="user_birthday" name="birthday" class="id-data-input">
+									</tr>
+							        <tr>
+										<td align="right">学历：</td>
+										<td>&nbsp;</td>
+										<td class="id-data-select2">
+											<select name id="education">
+												<option value="未知">请选择</option>
+												<option value="高中(中专)及以下">高中(中专)及以下</option>
+												<option value="本科及大专">本科及大专</option>
+												<option value="硕士及以上">硕士及以上</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<button id="btnusersave" type="button" class="btn btn-lg btn-primary btn-block" onclick="user_save();">保存</button>
+									</tr>
+							   </tbody>
+						</table>
+					</div>
+					<div class="tcbox" id="updateProfileBox1" style="display:none;">
+						<div class="tcmian290x200">
+							<em class="id-tcbox-ico"></em>\
+							<p class="id-tcbox-prompt-p">更新资料成功</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="tab2">
+					<!-- 修改密码 -->
+					<div class="id-account-info" id="tabs02" style="display: block;">
+						<div class="id-password-info">
+							<table id="resetpasswordform" width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tbody><tr class="password-tr">
+									<td width="80" align="right" class="id-data-font16">当前密码：</td>
+									<td width="20">&nbsp;</td>
+									<td>
+										<input id name="now_password" type="password" class="id-password-input" placeholder="当前密码"></td>
+									<td class="error-td">
+										<!--错误提示-->
+										<span class="hidden" style="display: inline;">
+											<em class="id-password-ico1"></em>
+											<span class="redtxt">请输入密码</span>
+										</span>
+										&nbsp;
+									</td>
+								</tr>
+								<tr class="newpassword-tr">
+									<td align="right" class="id-data-font16">新密码：</td>
+									<td>&nbsp;</td>
+									<td>
+										<input id name="new_password" type="password" class="id-password-input"  placeholder="新密码"></td>
+									<td class="error-td">
+										<!--错误提示-->
+										<span class="hidden">
+											<em class="id-password-ico1"></em>
+											<span class="redtxt">密码需6-20位，字母、数字和常用字符</span>
+										</span>
+										<!--弱-->
+										<span id="prompt-weak" style="display:none">
+											<em class="id-password-ico4"></em>
+											<!--中-->
+											<span id="prompt-middle" style="display:none">
+												<em class="id-password-ico5"></em>
+											</span>
+											<!--强-->
+											<span id="prompt-strong" style="display:none">
+												<em class="id-password-ico6"></em>
+											</span>
+											&nbsp;
+										</span>
+									</td>
+								</tr>
+								<tr class="newpassword2-tr">
+									<td align="right" class="id-data-font16">确认密码：</td>
+									<td>&nbsp;</td>
+									<td><input id name="confirm_password" type="password" class="id-password-input"  placeholder="确认密码"></td>
+									<td class="error-td">
+										<span class="hidden">
+											<em class="id-password-ico1"></em>
+											<span class="redtxt">两次输入的密码不一致</span>
+										</span>
+										&nbsp;
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td colspan="2"><button id="btnpwdsave" type="button" class="btn btn-lg btn-primary btn-block" onclick="passwordsave();">保存</button></td>
+								</tr>
+								</tbody></table>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="tab3">
+					<h4>Tab 3</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>
+				</div>
+			</div>
+		</div>
+	</div><!--/.panel-->
+</div><!--/.col-->
+
+<script src="{% static 'js/user_info.js' %}"></script>
+{% include 'common/footer.html' %}
+

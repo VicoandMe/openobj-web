@@ -3,6 +3,7 @@ from django.shortcuts import render, render_to_response
 from django.views.decorators.csrf import ensure_csrf_cookie
 from common import response_helper
 from . import logic
+from . import user_info
 
 
 @ensure_csrf_cookie
@@ -19,7 +20,6 @@ def register(request):
         return response_helper.http_response_json(status, msg, {})
     else:
         return render(request, 'usercenter/register.html', {})
-
 
 @ensure_csrf_cookie
 def register_success(request):
@@ -46,6 +46,19 @@ def login(request):
             return HttpResponseRedirect('/')
         else:
             return render_to_response('usercenter/login.html')
+
+@ensure_csrf_cookie
+def passwordsave(request):
+    """
+    保存修改的密码
+    """
+    if request.method == "POST":
+        nowpassword = request.POST.get("now_password")
+        newpassword = request.POST.get("new_password")
+        status,msg = user_info.passwordsave(request,request.session.get('user_name'),nowpassword,newpassword)
+        return response_helper.http_response_json(status,msg,{})
+    else:
+        return render_to_response('usercenter/user_info.html')
 
 
 @ensure_csrf_cookie
