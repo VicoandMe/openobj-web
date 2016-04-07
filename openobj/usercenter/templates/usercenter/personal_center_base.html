@@ -1,0 +1,23 @@
+{% load staticfiles %}
+{% include 'common/header_began.html' %}
+<link href="{% static 'css/personal_center.css' %}" rel="stylesheet">
+{% include 'common/header_end.html' %}
+{% include 'common/navbar.html' %}
+
+<div class="container fix">
+    <div class="sidebar col-md-3">
+        <ul>
+            <li><a id="nav-index" href="/usercenter/my">个人首页</a></li>
+            <li><a id="nav-account" href="/usercenter/info">账号设置</a></li>
+            <li><a id="nav-project" href="/usercenter/project">我的项目</a></li>
+        </ul>
+    </div>
+    <div class="right col-md-8">
+        {% block right_content %}{% endblock %}
+    </div>
+</div>
+
+
+
+{% include 'common/footer.html' %}
+

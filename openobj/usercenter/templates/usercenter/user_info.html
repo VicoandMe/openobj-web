@@ -1,0 +1,36 @@
+{% extends "usercenter/user_info_base.html" %}
+
+{% block info_content %}
+    <form class="form-horizontal">
+
+        <div class="form-group">
+            <label for="inputAlias" class="col-sm-2 control-label">昵称</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="inputAlias">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputSex" class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputBirthday" class="col-sm-2 control-label">出生日期</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="inputBirthday">
+            </div>
+        </div>
+
+        <div class="col-sm-5 col-sm-offset-2">
+            <button type="button" class="btn btn-primary">保存</button>
+        </div>
+
+    </form>
+
+    <script>
+        $(function () {
+            $("#tab-info").addClass('active');
+        });
+    </script>
+{% endblock %}

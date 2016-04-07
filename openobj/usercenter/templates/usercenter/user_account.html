@@ -1,0 +1,55 @@
+{% extends "usercenter/user_info_base.html" %}
+
+{% block info_content %}
+    <form class="form-horizontal">
+
+        <div class="form-group">
+            <label for="inputUserName" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="inputUserName" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="inputEmail" readonly>
+            </div>
+            <label id="email_verified" class="label label-danger">未验证</label>&nbsp;&nbsp;
+            <a href="#">点击验证</a>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label for="inputOldPwd" class="col-sm-2 control-label">旧密码</label>
+            <div class="col-sm-5">
+                <input type="password" class="form-control" id="inputOldPwd"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputNewPwd" class="col-sm-2 control-label">新密码</label>
+            <div class="col-sm-5">
+                <input type="password" class="form-control" id="inputNewPwd"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputConfirmPwd" class="col-sm-2 control-label">确认密码</label>
+            <div class="col-sm-5">
+                <input type="password" class="form-control" id="inputConfirmPwd"/>
+            </div>
+        </div>
+        <div class="col-sm-5 col-sm-offset-2">
+            <button type="button" class="btn btn-primary">保存</button>
+        </div>
+
+    </form>
+
+    <script>
+        $(function () {
+            $("#tab-account").addClass('active');
+        });
+    </script>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,16 @@
+{% extends "usercenter/personal_center_base.html" %}
+
+{% block right_content %}
+    <ul class="nav nav-tabs" style="margin-bottom: 40px;">
+        <li id="tab-info" role="presentation"><a href="/usercenter/info">个人信息</a></li>
+        <li id="tab-account" role="presentation"><a href="/usercenter/account">账号安全</a></li>
+    </ul>
+
+    {% block info_content %}{% endblock %}
+
+    <script>
+        $(function () {
+            $("#nav-account").addClass('nav-active');
+        });
+    </script>
+{% endblock %}
