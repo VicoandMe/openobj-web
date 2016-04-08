@@ -26,7 +26,6 @@ $(function () {
         },
         errorElement: "em",
         errorPlacement: function (error, element) {
-            error.addClass("valid-msg");
             error.insertAfter(element.parents(".input-group"));
         },
         highlight: function (element, errorClass, validClass) {
