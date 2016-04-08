@@ -5,7 +5,7 @@ import uuid
 from django.utils.timezone import now
 from common import const
 from libs import passwd_util
-from libs.MessageService.EmailMessage import EmailMessage
+from libs.message_service.email_message import email_message
 from usercenter.models import UserAccount, UserEmailVerifyCode
 from usercenter.models import UserInformation
 from usercenter.models import UserLoginHistory
@@ -88,7 +88,7 @@ def register(request, username, email, password):
     UserInformation.objects.create(user_account=user)
 
     url_host = '{0}/usercenter/email/verify'.format("http://" + request.get_host())
-    # send_register_email(user, url_host)
+    send_register_email(user, url_host)
 
     return status, msg
 
@@ -150,7 +150,7 @@ def send_register_email(user, url_host):
     body = settings.REG_EMAIL_CONTENT_TEMPLATE.format(url=url, username=user.user_name,
                                                       date_now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
-    msg = EmailMessage()
+    msg = email_message()
     msg.subject = settings.REG_EMAIL_SUBJECT
     msg.from_user = const.NOREPLY_EMAIL
     msg.to_user = user.email

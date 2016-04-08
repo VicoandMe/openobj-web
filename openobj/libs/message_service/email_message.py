@@ -3,17 +3,18 @@ import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
-from libs.MessageService.BaseMessage import BaseMessage
+from libs.message_service.base_message import base_message
 from common import const
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TangoWifi.settings")
 
 
-class EmailMessage(BaseMessage):
+class email_message(base_message):
     display_name = ""
     attachments = []
 
     def send(self):
+        return
         msg = MIMEMultipart()
         msg['From'] = self.from_user
         msg['To'] = self.to_user

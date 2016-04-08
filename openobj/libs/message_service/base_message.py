@@ -1,4 +1,4 @@
-class BaseMessage(object):
+class base_message(object):
     to_user = ""
     from_user = ""
     subject = ""
