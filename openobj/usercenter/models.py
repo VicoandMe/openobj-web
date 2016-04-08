@@ -29,7 +29,7 @@ class UserAccount(models.Model):
         try:
             user = UserAccount.objects.get(guid=self.guid)
             if user.password != self.password:
-                self.password = passwd_util.hash_password(user.password)
+                self.password = passwd_util.hash_password(self.password)
         except UserAccount.DoesNotExist:
             self.password = passwd_util.hash_password(self.password)
         super(UserAccount, self).save(*args, **kwargs)
