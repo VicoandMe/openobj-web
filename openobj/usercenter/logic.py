@@ -119,6 +119,16 @@ def login(request, email, password):
     return status, msg
 
 
+def change_password(user_guid, old_pwd, new_pwd):
+    user = UserAccount.objects.get(guid=user_guid)
+    if not passwd_util.check_password(user.password, old_pwd):
+        return const.FAIL_STATUS, "原密码错误"
+    else:
+        user.password = new_pwd
+        user.save()
+        return const.SUCCESS_STATUS, "密码修改成功"
+
+
 def send_register_email(user, url_host):
     """
     发送激活邮件
@@ -165,3 +175,12 @@ def verify_register_email(email_code):
     except UserEmailVerifyCode.DoesNotExist:
         return const.FAIL_STATUS, "验证失败"
     return const.FAIL_STATUS, "未知错误"
+
+
+def get_user_account(user_guid):
+    user = UserAccount.objects.get(guid=user_guid)
+    data = dict()
+    data['email'] = user.email
+    data['email_verified'] = user.email_verified
+    data['user_name'] = user.user_name
+    return data
