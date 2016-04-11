@@ -69,6 +69,9 @@ function changePwd() {
         success: function (res) {
             if (res['status'] == 0) {
                 showMessage(res['msg'], true);
+                $("#inputNewPwd").val("");
+                $("#inputOldPwd").val("");
+                $("#inputConfirmPwd").val("");
             }
             else {
                 showMessage(res['msg'], false);
