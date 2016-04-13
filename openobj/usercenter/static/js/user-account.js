@@ -7,7 +7,8 @@ $(function () {
             },
             inputNewPwd: {
                 required: true,
-                rangelength: [6, 20]
+                rangelength: [6, 20],
+                notEqual:"#inputOldPwd"
             },
             inputConfirmPwd: {
                 required: true,
@@ -22,7 +23,8 @@ $(function () {
             },
             inputNewPwd: {
                 required: "请输入密码",
-                rangelength: "密码为6-20个字符"
+                rangelength: "密码为6-20个字符",
+                notEqual:"新密码不能和老密码一致"
             },
             inputConfirmPwd: {
                 required: "请输入密码",

@@ -270,6 +270,7 @@ $.extend($.validator, {
 		digits: "Please enter only digits.",
 		creditcard: "Please enter a valid credit card number.",
 		equalTo: "Please enter the same value again.",
+		notEqual:"Please specify a different (non-default) value",
 		accept: "Please enter a value with a valid extension.",
 		maxlength: $.validator.format("Please enter no more than {0} characters."),
 		minlength: $.validator.format("Please enter at least {0} characters."),
@@ -1086,6 +1087,15 @@ $.extend($.validator, {
 				$(element).valid();
 			});
 			return value == target.val();
+		},
+
+		notEqual: function(value, element, param) {
+			// bind to the blur event of the target in order to revalidate whenever the target field is updated
+			// TODO find a way to bind the event just once, avoiding the unbind-rebind overhead
+			var target = $(param).unbind(".validate-notEqual").bind("blur.validate-notEqual", function() {
+				$(element).valid();
+			});
+			return value != target.val();
 		}
 
 	}
