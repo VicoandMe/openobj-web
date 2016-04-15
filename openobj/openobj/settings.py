@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pagedown',
+    'markdown_deux',
     'common',
     'usercenter',
     'project',
@@ -127,3 +129,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 TIME_ZONE = 'Asia/Shanghai'
+
+PAGEDOWN_SHOW_PREVIEW = True
