@@ -56,3 +56,7 @@
 .id-data-label{
     padding-right: 80px;
 }
+
+.span-nametips{
+    display: none;
+}

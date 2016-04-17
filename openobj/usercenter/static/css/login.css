@@ -14,3 +14,10 @@
 .my-group {
     margin-top: 15px;
 }
+.div-safe-show{
+    width: 300px;
+    hight:200px;
+    background: #afd9ee;
+    border: solid 1px #999999;
+    display: none;
+}

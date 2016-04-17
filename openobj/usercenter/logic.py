@@ -118,6 +118,15 @@ def login(request, email, password):
     request.session['guid'] = str(user.guid)
     return status, msg
 
+def save_userinfo(user_guid,nick_name, user_sex, user_bir):
+    user = UserAccount.objects.get(guid = user_guid)
+    user_info = UserInformation.objects.get(user_account = user)
+    user_info.nick_name = nick_name
+    user_info.sex = user_sex
+    user_info.birthday = user_bir
+    user_info.save()
+    return const.SUCCESS_STATUS, "更新资料成功"
+
 
 def change_password(user_guid, old_pwd, new_pwd):
     user = UserAccount.objects.get(guid=user_guid)
@@ -184,3 +193,12 @@ def get_user_account(user_guid):
     data['email_verified'] = user.email_verified
     data['user_name'] = user.user_name
     return data
+
+def get_user_info(user_guid):
+    user = UserAccount.objects.get(guid = user_guid)
+    user_info = UserInformation.objects.get(user_account = user)
+    data = dict()
+    data['nick_name'] = user_info.nick_name
+    data['sex'] = user_info.sex
+    data['birthday'] = user_info.birthday
+    return  data

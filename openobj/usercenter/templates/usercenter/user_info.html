@@ -1,36 +1,62 @@
 {% extends "usercenter/user_info_base.html" %}
 
 {% block info_content %}
+    {% load staticfiles %}
+    <script src="{% static 'js/user-info.js' %}"></script>
     <form class="form-horizontal">
+        <div id="div-fail-alert">
+        </div>
 
         <div class="form-group">
             <label for="inputAlias" class="col-sm-2 control-label">昵称</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="inputAlias">
+                <input type="text" class="form-control" id="inputAlias" value="{{nick_name}}">
+                <span class="span-nametips" id="nicknameTip">1-20个字符</span>
             </div>
         </div>
         <div class="form-group">
             <label for="inputSex" class="col-sm-2 control-label">性别</label>
-            <div class="col-sm-5">
+            <div id = "user_sex" class="col-sm-5">
+                {% if sex == "male" %}
                  <label class="id-data-label">
-                     <input name="inputmale" type="checkbox">
+                     <input id="inputmale" type="checkbox" value="male" checked="true">
+                         <span class="lbl">男</span>
+                  </label>
+                  <label class="id-data-label">
+                     <input id="inputfemale1" type="checkbox" value="female">
+                         <span class="lbl">女</span>
+                  </label>
+                {% elif sex == "female" %}
+                 <label class="id-data-label">
+                     <input id="inputmale1" type="checkbox" value="male">
                          <span class="lbl">男</span>
                   </label>
                 <label class="id-data-label">
-                     <input name="inputfamel" type="checkbox">
+                     <input id="inputfemale" type="checkbox" value="female" checked="true">
                          <span class="lbl">女</span>
                   </label>
+                {% else %}
+                <label class="id-data-label">
+                     <input id="inputmale2" type="checkbox" value="male">
+                         <span class="lbl">男</span>
+                  </label>
+                <label class="id-data-label">
+                     <input id="inputfemale2" type="checkbox" value="female">
+                         <span class="lbl">女</span>
+                  </label>
+                {% endif %}
             </div>
         </div>
         <div class="form-group">
             <label for="inputBirthday" class="col-sm-2 control-label">出生日期</label>
             <div class="col-sm-5">
-                <input type="date" class="form-control" id="inputBirthday">
+                <input type="datetime" class="form-control" id="inputBirthday" value="{{birthday}}">
+                 <span class="span-nametips" id="birthdayTip">生日格式为：1990-8-12</span>
             </div>
         </div>
 
         <div class="col-sm-5 col-sm-offset-2">
-            <button type="button" class="btn btn-primary">保存</button>
+            <button id="btnsaveinfo" type="button" class="btn btn-primary">保存</button>
         </div>
 
     </form>

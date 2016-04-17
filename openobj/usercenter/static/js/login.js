@@ -46,12 +46,22 @@ $(function () {
 function showMessage(msg) {
     $("#div-fail-alert").html('<div class="alert alert-danger"><a class="close" data-dismiss="alert" href="#">×</a>' + msg + '</div>');
 }
+$(document).ready(function(){
+     $("#login-remember").mouseover(function(){
+         console.log("moveover" );
+        $("#div-safe-tips").show();
+    });
+
+    $("#login-remember").mouseout(function(){
+        console.log("moveout" );
+       $("#div-safe-tips").hide();
+    });
+});
 
 function login() {
     if (!$("#loginForm").valid()) {
         return;
     }
-
     var input_email = $("#login-username").val();
     var input_password = $("#login-password").val();
     $.ajax({

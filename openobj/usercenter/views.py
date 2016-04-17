@@ -85,13 +85,19 @@ def user_info(request):
     """
     个人资料
     """
+    user_guid = request.session.get('guid')
     if request.method == "POST":
-        pass
+        nick_name = request.POST.get("nick_name")
+        user_sex = request.POST.get("sex")
+        user_bir = request.POST.get("birthday")
+        status, msg = logic.save_userinfo(user_guid,nick_name, user_sex, user_bir)
+        return response_helper.http_response_json(status, msg, {})
     else:
-        if not request.session.get('guid'):
+        if not user_guid:
             return HttpResponseRedirect('/')
         else:
-            return response_helper.render_response_html(request, 'usercenter/user_info.html', {})
+            data = logic.get_user_info(user_guid)
+            return response_helper.render_response_html(request, 'usercenter/user_info.html', data)
 
 
 @ensure_csrf_cookie
@@ -111,3 +117,5 @@ def user_account(request):
     else:
         data = logic.get_user_account(user_guid)
         return response_helper.render_response_html(request, 'usercenter/user_account.html', data)
+
+
