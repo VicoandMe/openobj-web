@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load markdown_deux_tags %}
 {% include 'common/header_began.html' %}
 {% include 'common/header_end.html' %}
 {% include 'common/navbar.html' %}
@@ -29,7 +30,7 @@
             代码形式:{{ project_info.code_pattern }}
             托管方式:{{ project_info.repository }}
         </p>
-        <p>{{ project_info.description }}</p>
+        <p>{{ project_info.description | markdown }}</p>
     </div>
     <div class="col-md-3">
         {#            <div class="panel panel-default">#}
