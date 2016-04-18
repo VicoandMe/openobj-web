@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load markdown_deux_tags %}
+{% load project_filter %}
 {% include 'common/header_began.html' %}
 {% include 'common/header_end.html' %}
 {% include 'common/navbar.html' %}
@@ -9,11 +10,15 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <h2>{{ project_info.title }}</h2>
             </div>
-            <div class="col-lg-6">
-                <h3></h3>
+            <div class="col-lg-12">
+                <h3>
+                    开发难度:{{ project_info.difficulty | difficulty }}
+                    代码形式:{{ project_info.code_pattern | code_pattern }}
+                    托管方式:{{ project_info.repository | repository}}
+                </h3>
             </div>
         </div>
 
@@ -25,11 +30,6 @@
 
 <div class="container">
     <div class="col-md-9">
-        <p>
-            浏览数:{{ project_info.read_num }} 难度:{{ project_info.difficulty }}
-            代码形式:{{ project_info.code_pattern }}
-            托管方式:{{ project_info.repository }}
-        </p>
         <p>{{ project_info.description | markdown }}</p>
     </div>
     <div class="col-md-3">
